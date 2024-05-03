@@ -9,6 +9,8 @@ from rest_framework.test import APIClient
 from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
+TOKEN_URL = reverse('user:token')
+
 
 
 def create_user(**params):
@@ -59,3 +61,49 @@ class PublicUserApiTests(TestCase):
             email=payload['email']
         ).exists()
         self.assertFalse(user_exist)
+
+    def test_create_token_for_user(self):
+        """Test if token is created for new users."""
+        user_detail = {
+            'email': 'testExample@example.com',
+            'password': 'test123',
+            'name': 'alfredo',
+        }
+        create_user(**user_detail)
+        payload = {
+            'email': user_detail['email'],
+            'password': user_detail['password'],
+        }
+
+        res = self.client.post(TOKEN_URL,payload)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertIn('token', res.data)
+
+    def test_create_token_bad_credentials(self):
+        """Test return false if credentials invalid"""
+        create_user(email = 'test@example.com', password = 'goodpass')
+        user_detail = {
+            'email': 'testexample@example.com',
+            'password': 'badpass',
+        }
+        res = self.client.post(TOKEN_URL,user_detail)
+        self.assertNotIn('token', res.data)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_token_email_not_found(self):
+        payload = {'email': 'test@example.com', 'password': 'pass123'}
+        res = self.client.post(TOKEN_URL, payload)
+
+        self.assertNotIn('token', res.data)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_token_blank_password(self):
+        """Test return false if pass blank """
+        user_detail = {
+            'email': 'example@example.com',
+            'password': '',
+            'name': 'alfredo',
+        }
+        res = self.client.post(TOKEN_URL,user_detail)
+        self.assertNotIn('token', res.data)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
