@@ -4,40 +4,23 @@ services:
   app:
     build:
       context: .
+    container_name: django-app
     restart: always
-    volumes:
-      - static-data:/vol/web
-    environment:
-      - DB_HOST=db
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
-      - DEBUG=1
-      - SECRET_KEY=${DJANGO_SECRET_KEY}
-      - ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
-    depends_on:
-      - db
-  db:
-    image: postgres:16.2-alpine3.19
-    restart: always
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASS}
-
-  proxy:
-    build:
-      context: ./proxy
-    restart: always
-    depends_on:
-      - app
     ports:
       - 8000:8000
     volumes:
-      - static-data:/vol/static
-
-volumes:
-  postgres-data:
-  static-data:
+      - ./app:/app
+      - ./creds.json:/secrets/creds.json
+    env_file:
+      - ./.env
+  # The proxy will help us connect to remote CloudSQL instance locally.
+  # Make sure to turn off any VPNs for the proxy to work.
+  cloudsqlproxy:
+    container_name: cloudsql-proxy
+    image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+    volumes:
+      - ./creds.json:/secrets/cloudsql/creds.json
+    ports:
+      - 127.0.0.1:5432:5432
+    command: /cloud_sql_proxy -instances="djangoapiv1:europe-southwest1:carhub-db-1"=tcp:0.0.0.0:5432 -credential_file=/secrets/cloudsql/creds.json
+    restart: always

@@ -1,0 +1,75 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+    run.googleapis.com/launch-stage: BETA
+    run.googleapis.com/minScale: '1'
+  labels:
+    cloud.googleapis.com/location: europe-southwest1
+    run.googleapis.com/satisfiesPzs: 'true'
+  name: carhubv0
+  namespace: '806539194082'
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '100'
+        run.googleapis.com/client-name: cloud-console
+        run.googleapis.com/cloudsql-instances: djangoapiv1:europe-southwest1:car-hub-db-4
+        run.googleapis.com/container-dependencies: '{"proxynginx":["appandproxy"]}'
+        run.googleapis.com/startup-cpu-boost: 'true'
+      labels:
+        client.knative.dev/nonce: 06a1c584-dc45-4de1-abf6-0b4b8f63446c
+        run.googleapis.com/startupProbeType: Custom
+    spec:
+      containerConcurrency: 80
+      containers:
+      - image: europe-southwest1-docker.pkg.dev/djangoapiv1/carhubv0dockerimages/proxynginx:latest
+        name: proxynginx
+        ports:
+          - containerPort: 8000
+            name: http1
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+        volumeMounts:
+          - mountPath: /etc/nginx/conf.d/
+            name: nginx-conf-secret
+            readOnly: true
+        startupProbe:
+          failureThreshold: 1
+          periodSeconds: 240
+          tcpSocket:
+            port: 8000
+          timeoutSeconds: 240
+      - image: europe-southwest1-docker.pkg.dev/djangoapiv1/carhubv0dockerimages/appandproxy:latest
+        name: appandproxy
+        env:
+          - name: PORT
+            value: "9000"
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        startupProbe:
+          timeoutSeconds: 240
+          periodSeconds: 240
+          failureThreshold: 1
+          tcpSocket:
+            port: 9000
+
+      serviceAccountName: 806539194082-compute@developer.gserviceaccount.com
+      timeoutSeconds: 300
+      volumes:
+      - name: nginx-conf-secret
+        secret:
+          items:
+          - key: latest
+            path: default.conf
+          secretName: nginx_config
+  traffic:
+  - latestRevision: true
+    percent: 100

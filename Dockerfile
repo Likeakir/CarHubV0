@@ -1,4 +1,4 @@
-FROM python:3.12.3-alpine3.19
+FROM --platform=linux/amd64 python:3.12.3-alpine3.19
 LABEL mainteiner = "Alfredoparre"
 
 ENV PYTHONUNBUFFERED 1
@@ -9,6 +9,9 @@ COPY ./scripts /scripts
 COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
+EXPOSE 9000
+
+ENV HOST 0.0.0.0
 
 ARG DEV=false
 RUN python -m venv /py && \
@@ -27,13 +30,13 @@ RUN python -m venv /py && \
         --no-create-home  \
         django-user && \
     mkdir -p /vol/web/media && \
-    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
     chmod -R 755 /vol && \
     chmod -R +x /scripts
 
-ENV PATH="/scripts:/py/bin:$PATH"
+ENV PATH="/py/bin:$PATH"
 
 USER django-user
 
-CMD [ "run.sh" ]
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 app.wsgi:application

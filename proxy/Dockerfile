@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:1-alpine
+FROM --platform=linux/amd64 nginxinc/nginx-unprivileged:1-alpine
 LABEL maintainer="alfredoParre.com"
 
 COPY ./default.conf.tpl /etc/nginx/default.conf.tpl

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "djangoapiv1",
+  "private_key_id": "b8038057103e29e1d45c52e674dbeda7167a9750",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCtILZiV9Wp+64j\nnt5l3oLlqxhzexU8R5ZCt4MaXDCyCAbh+Y+riR6su+piVsTEYachkcMWzna55JiJ\nuZWqbUtBL+zpK6KU6vsJcgNDJRJzayI2JWlXtKR4qXE13o20bOkJmdq4lR/BSLY5\nUhLcZIb9HjQRYMW8mU6aRRCDFGQWXd6UhxGdmCAEESU1Ak/+kfpSEmASV+LrncjH\no5JC0Qp/Uz5VN3JhkKWwRInRL6NsDD4x5WvhuPJ+P6oKIDymcyJnefIyoIXeU4Uf\nM9mhtJjMB8hQO8r/rqZulrSHPc+OjXt6/saZMFPRLg93Y9BqxRhSndJgeY96nfid\nyJuNTUGBAgMBAAECggEAVUewX5gJqT5PBL/cqExnqS9TD4t5JeTTeRDBdUolOIUo\nssaGRUZ5hDfamE9KhLvfonMVKNZR+HbIxsrSlQ1aTQWJC0CRyQ5I01nEjp4jzRPg\nWdCq5+eVPtSkbhcvMUmWr0KI0XSvnDuve2PY45RnRCbNGiRTsvfHlslffVodhUAv\njLBkXLOJCiqxvXB1bz6P7qFwlWBnj7Hgp0I6KzA79RUuEQQw/MWVRbLKE4MoiD0o\nNVXYJ0a2TaZgEDmR6FzeKgP2BzjuH/+K9y+WyLdkB8B8km8QLm1D+60UVTSXkd1I\nGwsNm1fPrqAq8vFbDa6l6hAswvO0lsQxBgQd629/8wKBgQDXvnhB/d7yfTPfMytz\njPG2PGjv1PDGN8EH0vfxGPnrPc64tlMSWq+9crm53KpMCU9REXAsAv4XRbGWc3F4\nhCVfSkkYrLC9zvQLcUptdnryYCYhthPd9yWdirIMHMNHf7ZjkUKFr6zQba+DobnU\njCMHBeXPtOajBJEkb+KKCLj8UwKBgQDNbpNshKGftIkIrPF0kTgaphyWkiicxGii\n1CBuVTXRI5a6YJqaM5trly+02BYFDqyyrcguc2sYiGKC68M0ZDpCFQKR5eXXqrZW\nNvAMXDceU2O4TXO4SX2DXpHXRqXGh+KCRX//DvCiOpi4+KUOLwWTiktjA8ByCsZg\nYD7AA1QwWwKBgDm4jfgp8gIymTQ4PoHVzb2SAAlakWiW9iAfw5JPul3D1ZD5xtP8\nS1SGY0Zk0XMycnQgFEDSNCUJ0m+MR2mVAWKzP0dIvKirvANrthv/PPmn28vdKQeT\n3g5+UxCGiYCRnLya2o9l5viEwBaZqFxDegOhAlFF9wbaa/KxtIx1tPhdAoGAXuC+\n/dOTwerjjzowmiGnw8cMVQ5T63Na0DkgcVSxclH5f0K2pJlJIrvEsMVMBjHs2Oki\nFzH/OGlk9gplMYFI1tRVR4TiTmTtqYvd+hds7XieCbTbyTVH3rCCsuZSEgsYNgpb\nPzVrNcHSXzuXH6Hf9XBduPE2pHUNgd1xncTr0RkCgYArmyrQg7kzD2ExFe5ZWlL9\n42Tk7vgrb9l9nGzlMRw20N/x763CVwbxt5bwaHZ7UrzEK2+X6A5RLCKw1asmBz44\no92Bgs1yYN1mTAAX5t0C3ITGCeh+kNT0l5wD95Lxpl9997xszLYRARv1B3kNnR6d\npYGeUCFOiJFSyVKEl5HxTg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "carhub-service-acc@djangoapiv1.iam.gserviceaccount.com",
+  "client_id": "113218530327239173690",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/carhub-service-acc%40djangoapiv1.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
